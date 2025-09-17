@@ -113,6 +113,11 @@ Brand
 notes 필드에 분류 근거 키워드를 짧게 기록.
 가장 중요한 것은 문맥을 파악하여 0으로 비워두기보다, 관련성이 조금이라도 있다면 적극적으로 값을 추론해 채우는 것이다.
 
+6. 사용자 지정 정보 활용
+- "사용자 지정 광고 유형"이 제공된 경우, 해당 값을 ad_type으로 사용하되 문맥상 부적절하면 재분류
+- "사용자 지정 광고 카테고리"가 제공된 경우, 해당 값을 ad_type_category에 포함
+- 사용자 지정 정보가 없으면 광고 텍스트를 바탕으로 자동 분류
+
 다음 광고 텍스트를 분석하여 위 스키마에 맞는 JSON을 반환하세요:
 """.strip()
 
@@ -301,6 +306,8 @@ def classify_ad(ad_data: Dict[str, str], api_key: str) -> Optional[Dict[str, Any
 연령 범위: {ad_data.get('ads_age_min', '')}~{ad_data.get('ads_age_max', '')}
 시작일: {ad_data.get('ads_sdate', '')}
 종료일: {ad_data.get('ads_edate', '')}
+사용자 지정 광고 유형: {ad_data.get('ad_type', '')}
+사용자 지정 광고 카테고리: {ad_data.get('ad_type_category', '')}
 """.strip()
 
     prompt = create_classification_prompt() + "\n\n" + "광고 텍스트:\n" + ad_text
@@ -431,6 +438,31 @@ export GEMINI_API_KEY="your_api_key_here"
         ads_sdate = st.date_input("시작일")
         ads_edate = st.date_input("종료일")
     
+    # 광고 타입 및 카테고리 입력 (선택사항)
+    st.subheader("🎯 광고 분류 정보 (선택사항)")
+    st.info("💡 이 정보를 입력하면 더 정확한 분류가 가능합니다. 비워두면 AI가 자동으로 분석합니다.")
+    
+    col3, col4 = st.columns(2)
+    
+    with col3:
+        # 광고 타입 선택
+        ad_type_options = [
+            "", "game", "app", "shopping", "finance", "service", 
+            "content", "healthcare", "education", "rewards_only", "other"
+        ]
+        ad_type_labels = [
+            "자동 분석", "게임", "앱", "쇼핑", "금융", "서비스", 
+            "콘텐츠", "헬스케어", "교육", "리워드 전용", "기타"
+        ]
+        ad_type_mapping = dict(zip(ad_type_labels, ad_type_options))
+        selected_ad_type_label = st.selectbox("광고 유형", ad_type_labels)
+        selected_ad_type = ad_type_mapping[selected_ad_type_label]
+    
+    with col4:
+        # 광고 카테고리 입력
+        ad_type_category = st.text_input("광고 카테고리", placeholder="예: camera, social, news, rewards, kids")
+        st.caption("상위 유형에 따른 세부 카테고리를 입력하세요")
+    
     # 분류 실행 버튼
     if st.button("🚀 광고 분류하기", type="primary"):
         if not ads_name.strip():
@@ -446,7 +478,9 @@ export GEMINI_API_KEY="your_api_key_here"
                 "ads_age_min": str(ads_age_min),
                 "ads_age_max": str(ads_age_max),
                 "ads_sdate": str(ads_sdate),
-                "ads_edate": str(ads_edate)
+                "ads_edate": str(ads_edate),
+                "ad_type": selected_ad_type,
+                "ad_type_category": ad_type_category
             }
             
             # 진행 표시
