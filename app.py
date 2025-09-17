@@ -628,15 +628,15 @@ export GEMINI_API_KEY="your_api_key_here"
                 # 기본 정보
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    # 광고 유형을 한국어로 표시
-                    ad_type = result.get("ad_type", "N/A")
-                    ad_type_korean = get_korean_ad_type(ad_type)
-                    st.metric("광고 유형", ad_type_korean)
-                    
                     # 타겟 연령을 한국어로 표시
                     target_age = result.get("target_age", "N/A")
                     target_age_korean = get_korean_target_age(target_age)
                     st.metric("타겟 연령", target_age_korean)
+                    
+                    # 광고 유형을 한국어로 표시
+                    ad_type = result.get("ad_type", "N/A")
+                    ad_type_korean = get_korean_ad_type(ad_type)
+                    st.metric("광고 유형", ad_type_korean)
                     
                 with col2:
                     # 타겟 성별을 한국어로 표시
