@@ -522,10 +522,18 @@ export GEMINI_API_KEY="your_api_key_here"
                 with col2:
                     st.metric("타겟 성별", result.get("target_gender", "N/A"))
                     categories = result.get("ad_type_category", [])
-                    st.metric("카테고리", ", ".join(categories) if categories else "N/A")
+                    if isinstance(categories, list):
+                        categories_display = ", ".join(categories) if categories else "N/A"
+                    else:
+                        categories_display = str(categories) if categories else "N/A"
+                    st.metric("카테고리", categories_display)
                 with col3:
                     themes = result.get("ad_theme", [])
-                    st.metric("테마", ", ".join(themes) if themes else "N/A")
+                    if isinstance(themes, list):
+                        themes_display = ", ".join(themes) if themes else "N/A"
+                    else:
+                        themes_display = str(themes) if themes else "N/A"
+                    st.metric("테마", themes_display)
                 
                 # 상세 결과를 탭으로 표시
                 tab1, tab2, tab3, tab4, tab5 = st.tabs(["🎯 동기", "🎮 참여도", "🎁 프로모션", "🏢 브랜드", "💰 상거래"])
