@@ -223,7 +223,7 @@ def get_korean_target_gender(target_gender):
     """타겟 성별을 한국어로 변환"""
     gender_map = {
         "male_focus": "남성 중심", "female_focus": "여성 중심", 
-        "male": "남성", "female": "여성", "neutral": "중성"
+        "male": "남성", "female": "여성", "neutral": "전성별"
     }
     return gender_map.get(target_gender, target_gender)
 
