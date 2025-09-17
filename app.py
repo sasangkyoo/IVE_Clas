@@ -554,14 +554,14 @@ export GEMINI_API_KEY="your_api_key_here"
         ads_idx = st.text_input("광고 IDX", placeholder="광고 IDX를 입력하세요")
         ads_code = st.text_input("광고 코드", placeholder="광고 코드를 입력하세요")
         ads_name = st.text_input("광고명", placeholder="광고 이름을 입력하세요")
-        ads_summary = st.text_area("요약", placeholder="광고 요약을 입력하세요", height=100)
-        ads_guide = st.text_area("가이드", placeholder="광고 가이드를 입력하세요", height=100)
-        ads_limit = st.text_area("제한사항", placeholder="광고 제한사항을 입력하세요", height=100)
-    
-    with col2:
         ads_reward_price = st.text_input("리워드 가격", placeholder="리워드 가격을 입력하세요")
         ads_age_min = st.number_input("최소 연령", min_value=0, max_value=100, value=0)
         ads_age_max = st.number_input("최대 연령", min_value=0, max_value=100, value=100)
+    
+    with col2:
+        ads_summary = st.text_area("요약", placeholder="광고 요약을 입력하세요", height=100)
+        ads_guide = st.text_area("가이드", placeholder="광고 가이드를 입력하세요", height=100)
+        ads_limit = st.text_area("제한사항", placeholder="광고 제한사항을 입력하세요", height=100)
         ads_sdate = st.date_input("시작일")
         ads_edate = st.date_input("종료일")
     
