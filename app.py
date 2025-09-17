@@ -749,7 +749,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     motivation = result.get("motivation", {})
                     for key, value in motivation.items():
                         korean_key = get_korean_motivation_key(key)
-                        st.progress(value, text=f"{korean_key}: {value}")
+                        if isinstance(value, (int, float)):
+                            st.metric(korean_key, f"{value:.3f}")
+                        else:
+                            st.write(f"**{korean_key}**: {value}")
                 
                 with tab2:
                     st.subheader("🎮 참여도")
@@ -757,7 +760,7 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in engagement.items():
                         korean_key = get_korean_engagement_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value}")
+                            st.metric(korean_key, f"{value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -766,7 +769,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     promo = result.get("promo", {})
                     for key, value in promo.items():
                         korean_key = get_korean_promo_key(key)
-                        st.progress(value, text=f"{korean_key}: {value}")
+                        if isinstance(value, (int, float)):
+                            st.metric(korean_key, f"{value:.3f}")
+                        else:
+                            st.write(f"**{korean_key}**: {value}")
                 
                 with tab4:
                     st.subheader("🏢 브랜드")
@@ -774,7 +780,7 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in brand.items():
                         korean_key = get_korean_brand_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value}")
+                            st.metric(korean_key, f"{value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -784,7 +790,7 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in commerce.items():
                         korean_key = get_korean_commerce_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value}")
+                            st.metric(korean_key, f"{value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
