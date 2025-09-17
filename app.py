@@ -197,6 +197,117 @@ def call_gemini_json(prompt_text: str,
         return None
 
 # =========================================================
+# 한국어 변환 함수들
+# =========================================================
+def get_korean_ad_type(ad_type):
+    """광고 유형을 한국어로 변환"""
+    ad_type_map = {
+        "1": "설치형", "2": "실행형", "3": "참여형", "4": "클릭형", 
+        "5": "페북", "6": "트위터", "7": "인스타", "8": "노출형", 
+        "9": "퀘스트", "10": "유튜브", "11": "네이버", "12": "CPS(물건구매)",
+        "game": "게임", "app": "앱", "shopping": "쇼핑", "finance": "금융",
+        "service": "서비스", "content": "콘텐츠", "healthcare": "헬스케어",
+        "education": "교육", "rewards_only": "리워드 전용", "other": "기타"
+    }
+    return ad_type_map.get(ad_type, ad_type)
+
+def get_korean_target_age(target_age):
+    """타겟 연령을 한국어로 변환"""
+    age_map = {
+        "teens": "10대", "twenties": "20대", "thirties": "30대", 
+        "forties": "40대", "fifties": "50대", "adults": "성인", "all_ages": "전연령"
+    }
+    return age_map.get(target_age, target_age)
+
+def get_korean_target_gender(target_gender):
+    """타겟 성별을 한국어로 변환"""
+    gender_map = {
+        "male_focus": "남성 중심", "female_focus": "여성 중심", 
+        "male": "남성", "female": "여성", "neutral": "중성"
+    }
+    return gender_map.get(target_gender, target_gender)
+
+def get_korean_categories(categories):
+    """카테고리를 한국어로 변환"""
+    category_map = {
+        "0": "카테고리 선택안함", "1": "앱(간편적립)", 
+        "2": "경험하기(게임적립)/앱(간편적립)", "3": "구독(간편적립)",
+        "4": "간편미션-퀴즈(간편적립)", "5": "경험하기(게임적립)",
+        "6": "멀티보상(게임적립)", "7": "금융(참여적립)",
+        "8": "무료참여(참여적립)", "10": "유료참여(참여적립)",
+        "11": "쇼핑-상품별카테고리(쇼핑적립)", "12": "제휴몰(쇼핑적립)",
+        "13": "간편미션(간편적립)"
+    }
+    
+    if isinstance(categories, list):
+        korean_categories = [category_map.get(cat, cat) for cat in categories]
+        return ", ".join(korean_categories) if korean_categories else "N/A"
+    else:
+        return category_map.get(categories, categories) if categories else "N/A"
+
+def get_korean_themes(themes):
+    """테마를 한국어로 변환"""
+    theme_map = {
+        "fantasy": "판타지", "competition": "경쟁", "growth": "성장",
+        "trust": "신뢰", "safety_net": "안전망", "security_privacy": "보안/개인정보",
+        "rewards": "리워드", "savings_benefit": "절약 혜택", "urgency": "긴급성",
+        "fun": "재미", "social": "소셜", "convenience": "편의성",
+        "curiosity": "호기심", "habit_building": "습관형성", "status_display": "지위표시"
+    }
+    
+    if isinstance(themes, list):
+        korean_themes = [theme_map.get(theme, theme) for theme in themes]
+        return ", ".join(korean_themes) if korean_themes else "N/A"
+    else:
+        return theme_map.get(themes, themes) if themes else "N/A"
+
+def get_korean_motivation_key(key):
+    """동기 키를 한국어로 변환"""
+    motivation_map = {
+        "fun": "재미", "social": "소셜", "rewards": "리워드", "savings": "절약",
+        "trust": "신뢰", "convenience": "편의성", "growth": "성장", 
+        "status_display": "지위표시", "curiosity": "호기심", 
+        "habit_building": "습관형성", "safety_net": "안전망"
+    }
+    return motivation_map.get(key, key)
+
+def get_korean_engagement_key(key):
+    """참여도 키를 한국어로 변환"""
+    engagement_map = {
+        "casual_score": "캐주얼", "hardcore_score": "하드코어", 
+        "frequency_score": "사용빈도", "multi_app_usage": "멀티앱",
+        "retention_potential": "유지력", "session_length_expectation": "세션길이"
+    }
+    return engagement_map.get(key, key)
+
+def get_korean_promo_key(key):
+    """프로모션 키를 한국어로 변환"""
+    promo_map = {
+        "install_reward_sensitive": "설치리워드", "coupon_event_sensitive": "쿠폰이벤트",
+        "fomo_sensitive": "FOMO", "exclusive_benefit_sensitive": "독점혜택",
+        "trial_experience_sensitive": "체험경험"
+    }
+    return promo_map.get(key, key)
+
+def get_korean_brand_key(key):
+    """브랜드 키를 한국어로 변환"""
+    brand_map = {
+        "brand_loyalty": "브랜드충성도", "nostalgia": "향수", 
+        "trust_in_official": "공식신뢰", "award_proof_sensitive": "수상증명",
+        "local_trust_factor": "국내신뢰", "global_trust_factor": "글로벌신뢰"
+    }
+    return brand_map.get(key, key)
+
+def get_korean_commerce_key(key):
+    """상거래 키를 한국어로 변환"""
+    commerce_map = {
+        "price_sensitivity": "가격민감도", "premium_willingness": "프리미엄지불의향",
+        "transaction_frequency": "거래빈도", "risk_tolerance": "위험감수성",
+        "recurring_payment": "정기결제", "big_purchase_intent": "고액구매의도"
+    }
+    return commerce_map.get(key, key)
+
+# =========================================================
 # CSV 변환 함수
 # =========================================================
 def convert_to_csv_format(result: Dict[str, Any]) -> str:
@@ -517,65 +628,79 @@ export GEMINI_API_KEY="your_api_key_here"
                 # 기본 정보
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.metric("광고 유형", result.get("ad_type", "N/A"))
-                    st.metric("타겟 연령", result.get("target_age", "N/A"))
+                    # 광고 유형을 한국어로 표시
+                    ad_type = result.get("ad_type", "N/A")
+                    ad_type_korean = get_korean_ad_type(ad_type)
+                    st.metric("광고 유형", ad_type_korean)
+                    
+                    # 타겟 연령을 한국어로 표시
+                    target_age = result.get("target_age", "N/A")
+                    target_age_korean = get_korean_target_age(target_age)
+                    st.metric("타겟 연령", target_age_korean)
+                    
                 with col2:
-                    st.metric("타겟 성별", result.get("target_gender", "N/A"))
+                    # 타겟 성별을 한국어로 표시
+                    target_gender = result.get("target_gender", "N/A")
+                    target_gender_korean = get_korean_target_gender(target_gender)
+                    st.metric("타겟 성별", target_gender_korean)
+                    
+                    # 카테고리를 한국어로 표시
                     categories = result.get("ad_type_category", [])
-                    if isinstance(categories, list):
-                        categories_display = ", ".join(categories) if categories else "N/A"
-                    else:
-                        categories_display = str(categories) if categories else "N/A"
-                    st.metric("카테고리", categories_display)
+                    categories_korean = get_korean_categories(categories)
+                    st.metric("카테고리", categories_korean)
+                    
                 with col3:
+                    # 테마를 한국어로 표시
                     themes = result.get("ad_theme", [])
-                    if isinstance(themes, list):
-                        themes_display = ", ".join(themes) if themes else "N/A"
-                    else:
-                        themes_display = str(themes) if themes else "N/A"
-                    st.metric("테마", themes_display)
+                    themes_korean = get_korean_themes(themes)
+                    st.metric("테마", themes_korean)
                 
                 # 상세 결과를 탭으로 표시
                 tab1, tab2, tab3, tab4, tab5 = st.tabs(["🎯 동기", "🎮 참여도", "🎁 프로모션", "🏢 브랜드", "💰 상거래"])
                 
                 with tab1:
-                    st.subheader("동기 (Motivation)")
+                    st.subheader("🎯 동기")
                     motivation = result.get("motivation", {})
                     for key, value in motivation.items():
-                        st.progress(value, text=f"{key}: {value}")
+                        korean_key = get_korean_motivation_key(key)
+                        st.progress(value, text=f"{korean_key}: {value}")
                 
                 with tab2:
-                    st.subheader("참여도 (Engagement)")
+                    st.subheader("🎮 참여도")
                     engagement = result.get("engagement", {})
                     for key, value in engagement.items():
+                        korean_key = get_korean_engagement_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{key}: {value}")
+                            st.progress(value, text=f"{korean_key}: {value}")
                         else:
-                            st.write(f"**{key}**: {value}")
+                            st.write(f"**{korean_key}**: {value}")
                 
                 with tab3:
-                    st.subheader("프로모션 (Promo)")
+                    st.subheader("🎁 프로모션")
                     promo = result.get("promo", {})
                     for key, value in promo.items():
-                        st.progress(value, text=f"{key}: {value}")
+                        korean_key = get_korean_promo_key(key)
+                        st.progress(value, text=f"{korean_key}: {value}")
                 
                 with tab4:
-                    st.subheader("브랜드 (Brand)")
+                    st.subheader("🏢 브랜드")
                     brand = result.get("brand", {})
                     for key, value in brand.items():
+                        korean_key = get_korean_brand_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{key}: {value}")
+                            st.progress(value, text=f"{korean_key}: {value}")
                         else:
-                            st.write(f"**{key}**: {value}")
+                            st.write(f"**{korean_key}**: {value}")
                 
                 with tab5:
-                    st.subheader("상거래 (Commerce)")
+                    st.subheader("💰 상거래")
                     commerce = result.get("commerce", {})
                     for key, value in commerce.items():
+                        korean_key = get_korean_commerce_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{key}: {value}")
+                            st.progress(value, text=f"{korean_key}: {value}")
                         else:
-                            st.write(f"**{key}**: {value}")
+                            st.write(f"**{korean_key}**: {value}")
                 
                 # JSON 결과 다운로드
                 st.header("💾 결과 다운로드")
