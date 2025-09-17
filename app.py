@@ -345,7 +345,7 @@ def convert_to_csv_format(result: Dict[str, Any]) -> str:
         ','.join(result.get('notes', [])),
         result.get('ads_idx', ''),
         result.get('ads_code', ''),
-        result.get('original_ads_name', '')
+        result.get('ads_name', '')
     ])
     
     # Motivation
@@ -440,6 +440,8 @@ def classify_ad(ad_data: Dict[str, str], api_key: str) -> Optional[Dict[str, Any
         return None
 
     # 원본 데이터 추가
+    result["ads_idx"] = ad_data.get("ads_idx", "")
+    result["ads_code"] = ad_data.get("ads_code", "")
     result["ads_name"] = ad_data.get("ads_name", "")
     result["ads_summary"] = ad_data.get("ads_summary", "")
     result["ads_guide"] = ad_data.get("ads_guide", "")
@@ -549,6 +551,8 @@ export GEMINI_API_KEY="your_api_key_here"
     col1, col2 = st.columns(2)
     
     with col1:
+        ads_idx = st.text_input("광고 IDX", placeholder="광고 IDX를 입력하세요")
+        ads_code = st.text_input("광고 코드", placeholder="광고 코드를 입력하세요")
         ads_name = st.text_input("광고명", placeholder="광고 이름을 입력하세요")
         ads_summary = st.text_area("요약", placeholder="광고 요약을 입력하세요", height=100)
         ads_guide = st.text_area("가이드", placeholder="광고 가이드를 입력하세요", height=100)
@@ -602,6 +606,8 @@ export GEMINI_API_KEY="your_api_key_here"
         else:
             # 광고 데이터 구성
             ad_data = {
+                "ads_idx": ads_idx,
+                "ads_code": ads_code,
                 "ads_name": ads_name,
                 "ads_summary": ads_summary,
                 "ads_guide": ads_guide,
