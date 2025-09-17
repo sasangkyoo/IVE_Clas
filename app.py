@@ -56,21 +56,33 @@ def create_classification_prompt() -> str:
 
 3. 분류 규칙
 (A) 광고 유형 ad_type
-게임 → game
-앱(유틸, 카메라, 소셜 등) → app
-쇼핑몰, 이커머스 → shopping
-금융, 보험, 증권, 가상화폐 → finance
-배달, 부동산, 구인구직, 데이팅 등 서비스 → service
-스트리밍, 웹툰, VOD → content
-헬스케어/병원/건강관리 → healthcare
-교육/강의/학습 → education
-리워드 전용 앱 → rewards_only
-기타 → other
+1:설치형 → 1
+2:실행형 → 2
+3:참여형 → 3
+4:클릭형 → 4
+5:페북 → 5
+6:트위터 → 6
+7:인스타 → 7
+8:노출형 → 8
+9:퀘스트 → 9
+10:유튜브 → 10
+11:네이버 → 11
+12:CPS(물건구매) → 12
 
 (B) 광고 카테고리 ad_type_category
-상위 유형에 따라 고정 목록에서 선택.
-예: app → camera, social, news, rewards, kids
-예: finance → insurance, crypto, budgeting
+0: 카테고리 선택안함 → 0
+1: 앱(간편적립) → 1
+2: 경험하기(게임적립)/앱(간편적립) - cpi,cpe → 2
+3: 구독(간편적립) → 3
+4: 간편미션-퀴즈(간편적립) → 4
+5: 경험하기(게임적립) - cpa → 5
+6: 멀티보상(게임적립) → 6
+7: 금융(참여적립) → 7
+8: 무료참여(참여적립) → 8
+10: 유료참여(참여적립) → 10
+11: 쇼핑-상품별카테고리(쇼핑적립) → 11
+12: 제휴몰(쇼핑적립) → 12
+13: 간편미션(간편적립) → 13
 `
 (C) 광고 테마 ad_theme
 서사·정서·소구 포인트 태깅, 복수 가능
@@ -447,21 +459,30 @@ export GEMINI_API_KEY="your_api_key_here"
     with col3:
         # 광고 타입 선택
         ad_type_options = [
-            "", "game", "app", "shopping", "finance", "service", 
-            "content", "healthcare", "education", "rewards_only", "other"
+            "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
         ]
         ad_type_labels = [
-            "자동 분석", "게임", "앱", "쇼핑", "금융", "서비스", 
-            "콘텐츠", "헬스케어", "교육", "리워드 전용", "기타"
+            "자동 분석", "1:설치형", "2:실행형", "3:참여형", "4:클릭형", "5:페북", 
+            "6:트위터", "7:인스타", "8:노출형", "9:퀘스트", "10:유튜브", "11:네이버", "12:CPS(물건구매)"
         ]
         ad_type_mapping = dict(zip(ad_type_labels, ad_type_options))
         selected_ad_type_label = st.selectbox("광고 유형", ad_type_labels)
         selected_ad_type = ad_type_mapping[selected_ad_type_label]
     
     with col4:
-        # 광고 카테고리 입력
-        ad_type_category = st.text_input("광고 카테고리", placeholder="예: camera, social, news, rewards, kids")
-        st.caption("상위 유형에 따른 세부 카테고리를 입력하세요")
+        # 광고 카테고리 선택
+        category_options = [
+            "", "0", "1", "2", "3", "4", "5", "6", "7", "8", "10", "11", "12", "13"
+        ]
+        category_labels = [
+            "자동 분석", "0: 카테고리 선택안함", "1: 앱(간편적립)", "2: 경험하기(게임적립)/앱(간편적립) - cpi,cpe", 
+            "3: 구독(간편적립)", "4: 간편미션-퀴즈(간편적립)", "5: 경험하기(게임적립) - cpa", 
+            "6: 멀티보상(게임적립)", "7: 금융(참여적립)", "8: 무료참여(참여적립)", 
+            "10: 유료참여(참여적립)", "11: 쇼핑-상품별카테고리(쇼핑적립)", "12: 제휴몰(쇼핑적립)", "13: 간편미션(간편적립)"
+        ]
+        category_mapping = dict(zip(category_labels, category_options))
+        selected_category_label = st.selectbox("광고 카테고리", category_labels)
+        ad_type_category = category_mapping[selected_category_label]
     
     # 분류 실행 버튼
     if st.button("🚀 광고 분류하기", type="primary"):
