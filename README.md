@@ -19,7 +19,7 @@
 - **광고 유형 (ad_type)**: 1:설치형, 2:실행형, 3:참여형, 4:클릭형, 5:페북, 6:트위터, 7:인스타, 8:노출형, 9:퀘스트, 10:유튜브, 11:네이버, 12:CPS(물건구매)
 - **광고 카테고리 (ad_type_category)**: 0:카테고리선택안함, 1:앱(간편적립), 2:경험하기(게임적립)/앱(간편적립), 3:구독(간편적립), 4:간편미션-퀴즈(간편적립), 5:경험하기(게임적립), 6:멀티보상(게임적립), 7:금융(참여적립), 8:무료참여(참여적립), 10:유료참여(참여적립), 11:쇼핑-상품별카테고리(쇼핑적립), 12:제휴몰(쇼핑적립), 13:간편미션(간편적립)
 - **광고 테마 (ad_theme)**: 서사, 정서, 소구 포인트 태깅
-- **타겟 연령 (target_age)**: teens, twenties, thirties, forties, fifties, all_ages
+- **타겟 연령 (target_age)**: all_ages, teens, twenties, thirties, forties, fifties
 - **타겟 성별 (target_gender)**: male_focus, female_focus, neutral
 
 ### 🏷️ 광고 타입 및 카테고리 매핑

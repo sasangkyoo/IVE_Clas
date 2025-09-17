@@ -214,8 +214,8 @@ def get_korean_ad_type(ad_type):
 def get_korean_target_age(target_age):
     """타겟 연령을 한국어로 변환"""
     age_map = {
-        "teens": "10대", "twenties": "20대", "thirties": "30대", 
-        "forties": "40대", "fifties": "50대", "adults": "성인", "all_ages": "전연령"
+        "all_ages": "전연령", "teens": "10대", "twenties": "20대", "thirties": "30대", 
+        "forties": "40대", "fifties": "50대", "adults": "성인"
     }
     return age_map.get(target_age, target_age)
 
