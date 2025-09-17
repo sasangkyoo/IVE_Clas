@@ -485,49 +485,129 @@ def main():
         - **ads_code**: ads_idx가 다르더라도 ads_code가 같으면 유저는 그 중 1가지 광고에만 참여할 수 있다.
         - **original_ads_name**: 광고 이름 ads_name과 동일
         
-        #### 동기 (Motivation) - 0.0 ~ 1.0
-        - **motivation_fun**: 'game' 광고는 명시적 단어 없어도 기본 0.7 이상 부여. 엔터테인먼트, 'content' 유형도 0.3 이상 추론.
-        - **motivation_social**: 소셜 네트워킹 관련 광고
-        - **motivation_rewards**: '적립', '보상' 언급 시 1. 'shopping', 'game' 유형 광고는 문맥상 암시만 있어도 0.3 이상 추론.
-        - **motivation_savings**: '할인', '최저가' 언급 시 1. 'shopping' 유형 광고는 가격 소구 가능성이 높으므로 기본 0.3 이상 추론.
-        - **motivation_trust**: 'finance', 'healthcare' 광고는 신뢰가 중요하므로 기본 0.5 이상 부여. '공식', '인증' 등 언급 시 1.
-        - **motivation_convenience**: 편의 관련 광고
-        - **motivation_growth**: 'education', 'game'(특히 RPG) 유형은 성장 요소가 내재되어 있으므로 기본 0.4 이상 추론.
-        - **motivation_status_display**: 자기 자랑으로 예상
-        - **motivation_curiosity**: '무료 체험', '새로운 기능' 등 언급 시 1. 신규 앱/서비스 광고는 호기심 유발 가능성이 높으므로 0.2 이상 추론.
-        - **motivation_habit_building**: 습관형성 광고로 예상
-        - **motivation_safety_net**: 안전 관련 광고로 예상
+        #### 🎯 동기 (Motivation) - 0.0 ~ 1.0 점수
+        사용자가 광고에 반응하는 심리적 동기를 분석합니다:
         
-        #### 참여도 (Engagement)
-        - **engagement_casual_score**: 가벼운 앱 (0.0 ~ 1.0)
-        - **engagement_hardcore_score**: 하드 코어 한 앱 (0.0 ~ 1.0)
-        - **engagement_frequency_score**: 자주 사용할 앱 (0.0 ~ 1.0)
-        - **engagement_multi_app_usage**: 여러 앱 사용 (0, 1)
-        - **engagement_retention_potential**: 오래 사용할 앱 (0.0 ~ 1.0)
-        - **engagement_session_length_expectation**: 이중 하나 'short' 'medium' 'long'
+        - **motivation_fun (재미)**: 게임이나 엔터테인먼트 요소에 대한 관심도
+          - 게임 광고는 명시적 단어 없어도 기본 0.7 이상 부여
+          - 엔터테인먼트, 콘텐츠 유형도 0.3 이상 추론
+          
+        - **motivation_social (소셜)**: 친구들과 공유하거나 소통하고 싶은 욕구
+          - 소셜 네트워킹, 커뮤니티 관련 광고에서 높은 점수
+          
+        - **motivation_rewards (리워드)**: 포인트나 혜택을 받고 싶은 욕구
+          - '적립', '보상' 언급 시 1.0
+          - 쇼핑, 게임 유형 광고는 문맥상 암시만 있어도 0.3 이상 추론
+          
+        - **motivation_savings (절약)**: 돈을 절약하고 싶은 욕구
+          - '할인', '최저가' 언급 시 1.0
+          - 쇼핑 유형 광고는 가격 소구 가능성이 높으므로 기본 0.3 이상 추론
+          
+        - **motivation_trust (신뢰)**: 안전하고 신뢰할 수 있는 서비스에 대한 선호
+          - 금융, 헬스케어 광고는 신뢰가 중요하므로 기본 0.5 이상 부여
+          - '공식', '인증' 등 언급 시 1.0
+          
+        - **motivation_convenience (편의성)**: 간편하고 쉬운 사용에 대한 선호
+          - 편의 관련 기능이나 서비스 광고에서 높은 점수
+          
+        - **motivation_growth (성장)**: 개인적 발전이나 학습에 대한 욕구
+          - 교육, 게임(특히 RPG) 유형은 성장 요소가 내재되어 있으므로 기본 0.4 이상 추론
+          
+        - **motivation_status_display (지위표시)**: 사회적 지위나 인정받고 싶은 욕구
+          - 명품, 고급 서비스, 성취감을 주는 광고에서 높은 점수
+          
+        - **motivation_curiosity (호기심)**: 새로운 것을 탐험하고 싶은 욕구
+          - '무료 체험', '새로운 기능' 등 언급 시 1.0
+          - 신규 앱/서비스 광고는 호기심 유발 가능성이 높으므로 0.2 이상 추론
+          
+        - **motivation_habit_building (습관형성)**: 규칙적인 행동 패턴 형성에 대한 선호
+          - 일상생활 개선, 건강 관리, 학습 습관 관련 광고에서 높은 점수
+          
+        - **motivation_safety_net (안전망)**: 위험을 피하고 안전을 추구하는 욕구
+          - 보험, 보안, 안전 관련 서비스 광고에서 높은 점수
         
-        #### 프로모션 (Promo) - 0.0 ~ 1.0
-        - **promo_install_reward_sensitive**: 설치 리워드 관련
-        - **promo_coupon_event_sensitive**: 쿠폰 리워드 관련
-        - **promo_fomo_sensitive**: FOMO 리워드 관련
-        - **promo_exclusive_benefit_sensitive**: 독점 혜택 리워드 관련
-        - **promo_trial_experience_sensitive**: 경험 리워드 관련
+        #### 🎮 참여도 (Engagement) - 0.0 ~ 1.0 점수
+        사용자의 앱 사용 패턴과 참여 수준을 분석합니다:
         
-        #### 브랜드 (Brand) - 0.0 ~ 1.0
-        - **brand_brand_loyalty**: 브랜드 충성도
-        - **brand_nostalgia**: 브랜드가 행수병을 일으키는
-        - **brand_trust_in_official**: 브랜드 신뢰도
-        - **brand_award_proof_sensitive**: 컬럼 이름과 동일
-        - **brand_local_trust_factor**: 한국에서 신뢰도
-        - **brand_global_trust_factor**: 해외 신뢰도
+        - **engagement_casual_score (캐주얼)**: 가벼운 앱 사용 선호도
+          - 간단한 게임, 뉴스, 날씨 앱 등 가벼운 사용에 적합한 앱
+          
+        - **engagement_hardcore_score (하드코어)**: 깊이 있는 앱 사용 선호도
+          - 복잡한 게임, 전문 도구, 학습 앱 등 깊이 있는 사용이 필요한 앱
+          
+        - **engagement_frequency_score (사용빈도)**: 자주 사용할 앱에 대한 선호도
+          - 일상적으로 자주 사용하는 앱에 대한 관심도
+          
+        - **engagement_multi_app_usage (멀티앱)**: 여러 앱을 동시에 사용하는 성향
+          - 0: 단일 앱 집중 사용, 1: 여러 앱 동시 사용 선호
+          
+        - **engagement_retention_potential (유지력)**: 오래 사용할 앱에 대한 선호도
+          - 장기적으로 사용할 수 있는 앱에 대한 관심도
+          
+        - **engagement_session_length_expectation (세션길이)**: 앱 사용 시간 기대치
+          - 'short': 짧은 시간 사용 (5분 이하)
+          - 'medium': 중간 시간 사용 (5-30분)
+          - 'long': 긴 시간 사용 (30분 이상)
         
-        #### 상거래 (Commerce)
-        - **commerce_price_sensitivity**: 가격 민감 (0.0 ~ 1.0)
-        - **commerce_premium_willingness**: 지불 의향이 있는 유저에게 효과적인가 (0.0 ~ 1.0)
-        - **commerce_transaction_frequency**: 거래 빈도 성향 (0.0 ~ 1.0)
-        - **commerce_risk_tolerance**: 금전적 위험 감수 성향 (0.0 ~ 1.0)
-        - **commerce_recurring_payment**: 정기 결제 구조 여부 (구독형) (0.0 ~ 1.0)
-        - **commerce_big_purchase_intent**: 고액 소비/큰 지출 의도 (0.0 ~ 1.0)
+        #### 🎁 프로모션 (Promotion) - 0.0 ~ 1.0 점수
+        다양한 프로모션 요소에 대한 반응도를 분석합니다:
+        
+        - **promo_install_reward_sensitive (설치리워드)**: 앱 설치 시 리워드에 대한 민감도
+          - 앱 설치만으로도 포인트나 혜택을 받을 수 있는 광고에서 높은 점수
+          
+        - **promo_coupon_event_sensitive (쿠폰이벤트)**: 쿠폰이나 이벤트에 대한 민감도
+          - 할인 쿠폰, 특별 이벤트, 한정 혜택 등에 대한 반응도
+          
+        - **promo_fomo_sensitive (FOMO)**: 놓칠 수 있다는 불안감에 대한 민감도
+          - '한정 시간', '선착순', '마감 임박' 등 시간적 압박감을 주는 광고
+          
+        - **promo_exclusive_benefit_sensitive (독점혜택)**: 특별한 혜택에 대한 민감도
+          - VIP 혜택, 회원 전용, 특별 할인 등 독점적인 혜택에 대한 반응도
+          
+        - **promo_trial_experience_sensitive (체험경험)**: 무료 체험이나 샘플에 대한 민감도
+          - 무료 체험, 샘플 제공, 테스트 기회 등에 대한 관심도
+        
+        #### 🏢 브랜드 (Brand) - 0.0 ~ 1.0 점수
+        브랜드에 대한 인식과 신뢰도를 분석합니다:
+        
+        - **brand_brand_loyalty (브랜드충성도)**: 특정 브랜드에 대한 충성도
+          - 브랜드 로고, 슬로건, 브랜드 스토리 등에 대한 반응도
+          
+        - **brand_nostalgia (향수)**: 과거에 대한 그리움이나 추억에 대한 반응
+          - 레트로, 클래식, 추억을 자극하는 요소들에 대한 감정적 반응
+          
+        - **brand_trust_in_official (공식신뢰)**: 공식 채널이나 인증된 서비스에 대한 신뢰
+          - 공식 인증, 정식 출시, 공식 파트너십 등에 대한 신뢰도
+          
+        - **brand_award_proof_sensitive (수상증명)**: 수상 경력이나 인증에 대한 민감도
+          - 상장, 인증서, 수상 내역 등 권위 있는 증명에 대한 반응도
+          
+        - **brand_local_trust_factor (국내신뢰)**: 한국 내에서의 신뢰도
+          - 국내 브랜드, 한국어 서비스, 국내 시장에서의 인지도
+          
+        - **brand_global_trust_factor (글로벌신뢰)**: 해외에서의 신뢰도
+          - 글로벌 브랜드, 해외 진출, 국제적 인지도에 대한 반응도
+        
+        #### 💰 상거래 (Commerce) - 0.0 ~ 1.0 점수
+        구매 행동과 금전적 성향을 분석합니다:
+        
+        - **commerce_price_sensitivity (가격민감도)**: 가격에 대한 민감도
+          - 할인, 가격 비교, 저렴한 가격에 대한 반응도
+          
+        - **commerce_premium_willingness (프리미엄지불의향)**: 고급 서비스에 대한 지불 의향
+          - 프리미엄 서비스, 고급 기능, 품질에 대한 지불 의향도
+          
+        - **commerce_transaction_frequency (거래빈도)**: 자주 구매하는 성향
+          - 반복 구매, 정기적 구매, 자주 사용하는 서비스에 대한 선호도
+          
+        - **commerce_risk_tolerance (위험감수성)**: 금전적 위험을 감수하는 성향
+          - 투자, 새로운 서비스 시도, 불확실한 구매에 대한 위험 감수도
+          
+        - **commerce_recurring_payment (정기결제)**: 구독형 서비스에 대한 선호도
+          - 월 구독, 정기 결제, 구독 모델에 대한 관심도
+          
+        - **commerce_big_purchase_intent (고액구매의도)**: 큰 금액을 지출할 의도
+          - 고가 상품, 대형 구매, 큰 투자에 대한 의향도
         """)
     
     # API 키는 환경변수에서 자동으로 가져옴
