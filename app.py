@@ -803,13 +803,13 @@ export GEMINI_API_KEY="your_api_key_here"
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                json_str = json.dumps(result, ensure_ascii=False, indent=2)
-                st.download_button(
+                    json_str = json.dumps(result, ensure_ascii=False, indent=2)
+                    st.download_button(
                         label="📄 JSON 파일 다운로드",
-                    data=json_str,
-                    file_name=f"ad_classification_{ads_name.replace(' ', '_')}.json",
-                    mime="application/json"
-                )
+                        data=json_str,
+                        file_name=f"ad_classification_{ads_name.replace(' ', '_')}.json",
+                        mime="application/json"
+                    )
                 
                 with col2:
                     st.download_button(
