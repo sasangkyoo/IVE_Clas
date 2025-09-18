@@ -240,7 +240,7 @@ def get_korean_categories(categories):
     }
     
     if isinstance(categories, list):
-        korean_categories = [category_map.get(cat, cat) for cat in categories]
+        korean_categories = [category_map.get(str(cat), str(cat)) for cat in categories]
         return ", ".join(korean_categories) if korean_categories else "N/A"
     else:
         return category_map.get(str(categories), str(categories)) if categories else "N/A"
@@ -256,7 +256,7 @@ def get_korean_themes(themes):
     }
     
     if isinstance(themes, list):
-        korean_themes = [theme_map.get(theme, theme) for theme in themes]
+        korean_themes = [theme_map.get(str(theme), str(theme)) for theme in themes]
         return ", ".join(korean_themes) if korean_themes else "N/A"
     else:
         return theme_map.get(str(themes), str(themes)) if themes else "N/A"
