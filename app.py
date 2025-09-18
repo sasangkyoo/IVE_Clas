@@ -750,9 +750,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in motivation.items():
                         korean_key = get_korean_motivation_key(key)
                         if isinstance(value, (int, float)):
-                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
-                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
-                            st.progress(value, text=score_text)
+                            # 1.0일 때는 0.95로 표시하여 더 올라갈 수 있음을 시각적으로 표현
+                            display_value = 0.95 if value >= 1.0 else value
+                            score_text = f"{korean_key}: {value:.3f}"
+                            st.progress(display_value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -762,9 +763,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in engagement.items():
                         korean_key = get_korean_engagement_key(key)
                         if isinstance(value, (int, float)):
-                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
-                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
-                            st.progress(value, text=score_text)
+                            # 1.0일 때는 0.95로 표시하여 더 올라갈 수 있음을 시각적으로 표현
+                            display_value = 0.95 if value >= 1.0 else value
+                            score_text = f"{korean_key}: {value:.3f}"
+                            st.progress(display_value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -774,9 +776,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in promo.items():
                         korean_key = get_korean_promo_key(key)
                         if isinstance(value, (int, float)):
-                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
-                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
-                            st.progress(value, text=score_text)
+                            # 1.0일 때는 0.95로 표시하여 더 올라갈 수 있음을 시각적으로 표현
+                            display_value = 0.95 if value >= 1.0 else value
+                            score_text = f"{korean_key}: {value:.3f}"
+                            st.progress(display_value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -786,9 +789,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in brand.items():
                         korean_key = get_korean_brand_key(key)
                         if isinstance(value, (int, float)):
-                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
-                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
-                            st.progress(value, text=score_text)
+                            # 1.0일 때는 0.95로 표시하여 더 올라갈 수 있음을 시각적으로 표현
+                            display_value = 0.95 if value >= 1.0 else value
+                            score_text = f"{korean_key}: {value:.3f}"
+                            st.progress(display_value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -798,9 +802,10 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in commerce.items():
                         korean_key = get_korean_commerce_key(key)
                         if isinstance(value, (int, float)):
-                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
-                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
-                            st.progress(value, text=score_text)
+                            # 1.0일 때는 0.95로 표시하여 더 올라갈 수 있음을 시각적으로 표현
+                            display_value = 0.95 if value >= 1.0 else value
+                            score_text = f"{korean_key}: {value:.3f}"
+                            st.progress(display_value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
