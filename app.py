@@ -717,12 +717,11 @@ export GEMINI_API_KEY="your_api_key_here"
                     target_age_korean = get_korean_target_age(target_age)
                     st.metric("타겟 연령", target_age_korean)
                     
-                    # 광고 유형을 한국어로 표시 (숫자 제거)
+                    # 광고 유형을 한국어로 표시
                     ad_type = result.get("ad_type", "N/A")
                     ad_type_korean = get_korean_ad_type(ad_type)
-                    # 숫자만 있는 경우 한국어 설명으로 변환
-                    if ad_type_korean.isdigit():
-                        ad_type_korean = get_korean_ad_type(ad_type)
+                    # 안전하게 문자열로 변환하여 처리
+                    ad_type_korean = str(ad_type_korean)
                     st.metric("광고 유형", ad_type_korean)
                     
                 with col2:
