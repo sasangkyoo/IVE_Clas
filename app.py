@@ -209,7 +209,9 @@ def get_korean_ad_type(ad_type):
         "service": "서비스", "content": "콘텐츠", "healthcare": "헬스케어",
         "education": "교육", "rewards_only": "리워드 전용", "other": "기타"
     }
-    return ad_type_map.get(ad_type, ad_type)
+    # 숫자나 다른 타입도 문자열로 변환하여 처리
+    ad_type_str = str(ad_type)
+    return ad_type_map.get(ad_type_str, ad_type_str)
 
 def get_korean_target_age(target_age):
     """타겟 연령을 한국어로 변환"""
