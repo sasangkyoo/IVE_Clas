@@ -445,18 +445,10 @@ def classify_ad(ad_data: Dict[str, str], api_key: str) -> Optional[Dict[str, Any
     if result is None:
         return None
 
-    # 원본 데이터 추가
+    # 원본 데이터 추가 (JSON 형식에 맞춤)
     result["ads_idx"] = ad_data.get("ads_idx", "")
     result["ads_code"] = ad_data.get("ads_code", "")
-    result["ads_name"] = ad_data.get("ads_name", "")
-    result["ads_summary"] = ad_data.get("ads_summary", "")
-    result["ads_guide"] = ad_data.get("ads_guide", "")
-    result["ads_limit"] = ad_data.get("ads_limit", "")
-    result["ads_reward_price"] = ad_data.get("ads_reward_price", "")
-    result["ads_age_min"] = ad_data.get("ads_age_min", "")
-    result["ads_age_max"] = ad_data.get("ads_age_max", "")
-    result["ads_sdate"] = ad_data.get("ads_sdate", "")
-    result["ads_edate"] = ad_data.get("ads_edate", "")
+    result["original_ads_name"] = ad_data.get("ads_name", "")
     
     return result
 
@@ -725,9 +717,12 @@ export GEMINI_API_KEY="your_api_key_here"
                     target_age_korean = get_korean_target_age(target_age)
                     st.metric("타겟 연령", target_age_korean)
                     
-                    # 광고 유형을 한국어로 표시
+                    # 광고 유형을 한국어로 표시 (숫자 제거)
                     ad_type = result.get("ad_type", "N/A")
                     ad_type_korean = get_korean_ad_type(ad_type)
+                    # 숫자만 있는 경우 한국어 설명으로 변환
+                    if ad_type_korean.isdigit():
+                        ad_type_korean = get_korean_ad_type(ad_type)
                     st.metric("광고 유형", ad_type_korean)
                     
                 with col2:
@@ -756,7 +751,9 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in motivation.items():
                         korean_key = get_korean_motivation_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value:.3f}")
+                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
+                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
+                            st.progress(value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -766,7 +763,9 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in engagement.items():
                         korean_key = get_korean_engagement_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value:.3f}")
+                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
+                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
+                            st.progress(value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -776,7 +775,9 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in promo.items():
                         korean_key = get_korean_promo_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value:.3f}")
+                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
+                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
+                            st.progress(value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -786,7 +787,9 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in brand.items():
                         korean_key = get_korean_brand_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value:.3f}")
+                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
+                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
+                            st.progress(value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
@@ -796,7 +799,9 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in commerce.items():
                         korean_key = get_korean_commerce_key(key)
                         if isinstance(value, (int, float)):
-                            st.progress(value, text=f"{korean_key}: {value:.3f}")
+                            # 점수 범위 표시 (0.0~1.0, 1.0이 최고점)
+                            score_text = f"{korean_key}: {value:.3f} (0.0~1.0, 1.0=최고점)"
+                            st.progress(value, text=score_text)
                         else:
                             st.write(f"**{korean_key}**: {value}")
                 
