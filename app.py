@@ -243,7 +243,7 @@ def get_korean_categories(categories):
         korean_categories = [category_map.get(cat, cat) for cat in categories]
         return ", ".join(korean_categories) if korean_categories else "N/A"
     else:
-        return category_map.get(categories, categories) if categories else "N/A"
+        return category_map.get(str(categories), str(categories)) if categories else "N/A"
 
 def get_korean_themes(themes):
     """테마를 한국어로 변환"""
@@ -259,7 +259,7 @@ def get_korean_themes(themes):
         korean_themes = [theme_map.get(theme, theme) for theme in themes]
         return ", ".join(korean_themes) if korean_themes else "N/A"
     else:
-        return theme_map.get(themes, themes) if themes else "N/A"
+        return theme_map.get(str(themes), str(themes)) if themes else "N/A"
 
 def get_korean_motivation_key(key):
     """동기 키를 한국어로 변환"""
@@ -803,13 +803,13 @@ export GEMINI_API_KEY="your_api_key_here"
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    json_str = json.dumps(result, ensure_ascii=False, indent=2)
-                    st.download_button(
+                json_str = json.dumps(result, ensure_ascii=False, indent=2)
+                st.download_button(
                         label="📄 JSON 파일 다운로드",
-                        data=json_str,
-                        file_name=f"ad_classification_{ads_name.replace(' ', '_')}.json",
-                        mime="application/json"
-                    )
+                    data=json_str,
+                    file_name=f"ad_classification_{ads_name.replace(' ', '_')}.json",
+                    mime="application/json"
+                )
                 
                 with col2:
                     st.download_button(
