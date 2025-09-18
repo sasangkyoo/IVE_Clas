@@ -756,7 +756,6 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in motivation.items():
                         korean_key = get_korean_motivation_key(key)
                         if isinstance(value, (int, float)):
-                            st.metric(korean_key, f"{value:.3f}")
                             st.progress(value, text=f"{korean_key}: {value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
@@ -767,7 +766,6 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in engagement.items():
                         korean_key = get_korean_engagement_key(key)
                         if isinstance(value, (int, float)):
-                            st.metric(korean_key, f"{value:.3f}")
                             st.progress(value, text=f"{korean_key}: {value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
@@ -778,7 +776,6 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in promo.items():
                         korean_key = get_korean_promo_key(key)
                         if isinstance(value, (int, float)):
-                            st.metric(korean_key, f"{value:.3f}")
                             st.progress(value, text=f"{korean_key}: {value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
@@ -789,7 +786,6 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in brand.items():
                         korean_key = get_korean_brand_key(key)
                         if isinstance(value, (int, float)):
-                            st.metric(korean_key, f"{value:.3f}")
                             st.progress(value, text=f"{korean_key}: {value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
@@ -800,7 +796,6 @@ export GEMINI_API_KEY="your_api_key_here"
                     for key, value in commerce.items():
                         korean_key = get_korean_commerce_key(key)
                         if isinstance(value, (int, float)):
-                            st.metric(korean_key, f"{value:.3f}")
                             st.progress(value, text=f"{korean_key}: {value:.3f}")
                         else:
                             st.write(f"**{korean_key}**: {value}")
