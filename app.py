@@ -251,7 +251,7 @@ def get_korean_themes(themes):
     """테마를 한국어로 변환"""
     theme_map = {
         "fantasy": "판타지", "competition": "경쟁", "growth": "성장",
-        "trust": "신뢰", "safety_net": "안전망", "security_privacy": "보안/개인정보",
+        "trust": "신뢰", "safety_net": "안전성", "security_privacy": "보안/개인정보",
         "rewards": "리워드", "savings_benefit": "절약 혜택", "urgency": "긴급성",
         "fun": "재미", "social": "소셜", "convenience": "편의성",
         "curiosity": "호기심", "habit_building": "습관형성", "status_display": "지위표시"
@@ -269,7 +269,7 @@ def get_korean_motivation_key(key):
         "fun": "재미", "social": "소셜", "rewards": "리워드", "savings": "절약",
         "trust": "신뢰", "convenience": "편의성", "growth": "성장", 
         "status_display": "지위표시", "curiosity": "호기심", 
-        "habit_building": "습관형성", "safety_net": "안전망"
+        "habit_building": "습관형성", "safety_net": "안전성"
     }
     return motivation_map.get(key, key)
 
@@ -523,7 +523,7 @@ def main():
         - **motivation_habit_building (습관형성)**: 규칙적인 행동 패턴 형성에 대한 선호
           - 일상생활 개선, 건강 관리, 학습 습관 관련 광고에서 높은 점수
           
-        - **motivation_safety_net (안전망)**: 위험을 피하고 안전을 추구하는 욕구
+        - **motivation_safety_net (안전성)**: 위험을 피하고 안전을 추구하는 욕구
           - 보험, 보안, 안전 관련 서비스 광고에서 높은 점수
         
         #### 🎮 참여도 (Engagement) - 0.0 ~ 1.0 점수
