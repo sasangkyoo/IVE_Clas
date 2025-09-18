@@ -460,7 +460,7 @@ def classify_ad(ad_data: Dict[str, str], api_key: str) -> Optional[Dict[str, Any
 def main():
     st.set_page_config(
         page_title="IVE 광고 분류기",
-        page_icon="📊",
+        page_icon="icon/1-794df7f8.ico",
         layout="wide"
     )
     
