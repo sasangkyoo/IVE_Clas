@@ -138,7 +138,7 @@ notes 필드에 분류 근거 키워드를 짧게 기록.
 # =========================================================
 def call_gemini_json(prompt_text: str,
                      api_key: str,
-                     model: str = "gemini-2.0-flash-lite",
+                     model: str = "gemini-2.5-pro",
                      timeout: int = 30) -> Optional[Dict[str, Any]]:
     """
     Gemini에 프롬프트를 전달하고, JSON 응답을 안전하게 추출합니다.
